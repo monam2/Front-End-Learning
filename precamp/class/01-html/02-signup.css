@@ -1,0 +1,48 @@
+#signUpBack {
+    box-sizing: border-box;
+    width: 1920px;
+    height: 1080px;
+    border: none #fff;
+    justify-content: center;
+}
+
+#inback {
+    position: relative;
+    margin: 0 auto;
+    box-sizing: border-box;
+    width: 670px;
+    height: 960px;
+    border: 1px solid #AACDFF;
+    align-self: center;
+    border-radius: 20px;
+    box-shadow: 7px 7px 39px 0px rgba(0, 104, 255, 0.25);
+    padding: 100px;
+}
+
+h2 {
+    display: flex;
+    width: 466px;
+    flex-direction: column;
+    color: #0068FF;
+    font-family: Noto Sans CJK KR;
+    font-size: 32px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: normal;
+    
+}
+
+.grayText {
+    color: #797979;
+    font-family: Noto Sans CJK KR;
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+}
+
+input {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+}
