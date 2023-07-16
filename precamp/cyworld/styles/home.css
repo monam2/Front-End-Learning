@@ -37,8 +37,11 @@ body {
 
 .title {
     color: #55B2D4;
+    font-family: Malgun Gothic;
     font-size: 13px;
-    font-weight: 700px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: normal;
 }
 
 .subtitle {

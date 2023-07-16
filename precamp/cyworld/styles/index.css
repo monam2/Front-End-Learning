@@ -120,12 +120,12 @@
 }
 
 .right__header__title, .right__header__setting {
-    color: #55b2e4;
-    font-size: 9px;
+    font-size: 10px;
     font-family: Malgun Gothic;
 }
 
 .right__header__title {
+    color: #55b2e4;
     font-size: 16px;
     font-family: Malgun Gothic;
     font-style: normal;
@@ -144,4 +144,27 @@ iframe {
     width: 100%;
     height: 100%;
     border: none;
+}
+
+.navigation {
+    width: 62px;
+    height: 100px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    position: absolute;
+    left: 774px;
+    top: 110px;
+}
+.navigation__item {
+    width: 60px;
+    height: 30px;
+    background-color: #298eb5;
+    border: 1px solid black;
+    color: white;
+    border-radius: 0px 5px 5px 0px;
+    font-size: 10px;
+    text-align: center;
+    line-height: 30px;
+    cursor: pointer;
 }

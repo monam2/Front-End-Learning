@@ -3,7 +3,8 @@
 <head>
     <title>사이좋은 사람들, 싸이월드</title>
     <link href="./styles/index.css" rel="stylesheet">
-		<script src="<https://kit.fontawesome.com/6a675a031d.js>" crossorigin="anonymous"></script>
+	<script src="https://kit.fontawesome.com/6a675a031d.js" crossorigin="anonymous"></script>
+    <script src="./index.js"></script>
 </head>
 <body>
     <div class="background">
@@ -59,8 +60,13 @@
                       <div class="right__header__setting">사생활보호설정</div>
                     </div>
                     <div class="wrapper__right__body">
-                      <iframe src="./game.html" frameborder="0"></iframe>
+                      <iframe id="contentFrame" src="./home.html" frameborder="0"></iframe>
                     </div>
+                </div>
+                <div class="navigation">
+                    <div class="navigation__item" id="menuHome" onclick="menuHome()">홈</div>
+                    <div class="navigation__item" id="menuJukebox" onclick="menuJukebox()">주크박스</div>
+                    <div class="navigation__item" id="menuGame" onclick="menuGame()">게임</div>
                 </div>
             </div>
         </div>
