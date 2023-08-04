@@ -6,6 +6,7 @@ function App() {
   let post = 'Data Binding';
   let [title, setTitle] = useState(["Today is ...", "Tommorow is ...", "Yesterday is ..."]);
   let [like, changeLike] = useState(0);
+  let [modal, setModal] = useState(false);
 
   return (
     <div className="App">
@@ -31,11 +32,13 @@ function App() {
         <p>08.02 release</p>
       </div>
       <div className="list">
-        <h4>{title[2]}</h4>
+        <h4 onClick={()=>{setModal(!modal)}}>{title[2]}</h4>
         <p>08.02 release</p>
       </div>
 
-      <Modal></Modal>
+      {
+        modal ? <Modal/> : null
+      }
 
     </div>
   );
