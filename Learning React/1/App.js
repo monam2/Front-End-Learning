@@ -5,12 +5,13 @@ import { useState } from 'react';
 function App() {
   let post = 'Data Binding';
   let [title, setTitle] = useState(["Today is ...", "Tommorow is ...", "Yesterday is ..."]);
-  let [like, changeLike] = useState(0);
+  let [like, changeLike] = useState([0,0,0]);
   let [modal, setModal] = useState(false);
+
 
   return (
     <div className="App">
-      <div className="black-nav">
+      {/* <div className="black-nav">
         <h4 style={{ marginLeft: '20px' }}>Log</h4>
       </div>
       <button onClick={() => {
@@ -32,12 +33,27 @@ function App() {
         <p>08.02 release</p>
       </div>
       <div className="list">
-        <h4 onClick={()=>{setModal(!modal)}}>{title[2]}</h4>
+        <h4 onClick={() => { setModal(!modal) }}>{title[2]}</h4>
         <p>08.02 release</p>
-      </div>
+      </div> */}
 
       {
-        modal ? <Modal/> : null
+        title.map(function (a, i) {
+          return (
+            <div className="list" key = "{i}">
+              <h4>{a} <span onClick={() => { 
+                let copy = [...like];
+                copy[i] = copy[i] + 1;
+                changeLike(copy)
+                }}>👍</span> {like[i]} </h4>
+              <p>08.02 release</p>
+            </div>
+          )
+        })
+      }
+
+      {
+        modal ? <Modal /> : null
       }
 
     </div>
