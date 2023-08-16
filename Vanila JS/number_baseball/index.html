@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>숫자야구</title>
+</head>
+
+<body>
+  <form action="" id="form">
+    <input type="text" id="input">
+    <button>확인</button>
+  </form>
+  <div id="logs"></div>
+  <script>
+
+
+    const $input = document.querySelector('#input');
+    const $form = document.querySelector('#form');
+    const $logs = document.querySelector('#logs');
+
+    const numbers = []; //0~8 -> 1~9 : 9개
+    for (let n = 0; n< 9 ; n += 1) {
+      numbers.push(n+1);
+    }
+    const answer = [];
+    for (let n = 0; n<4; n++) {
+      const index = Math.floor(Math.random()*numbers.length); // *9
+      answer.push(numbers[index]);
+      numbers.splice(index,1);
+    }
+    console.log(answer)
+
+    const tries = [];
+    function checkInput(input) { //검사하는 코드
+      if (input.length!==4) {
+        return alert('4자리 숫자를 입력하세요.');
+      }
+      if (new Set(input).size !==4) {
+        return alert('중복되지 않게 입력해주세요.');
+      }
+      if (tries.includes(input)) {
+        return alert('이미 시도한 값입니다.');
+      }
+      return true;
+    }
+
+    let out = 0;
+    $form.addEventListener('submit', (event)=>{
+      event.preventDefault();
+      const value = $input.value;//입력데이터 저장
+      $input.value = ''; //입력데이터 초기화
+      if (!checkInput(value)) {//검사
+        return;
+      }
+      if (answer.join('') === value) {
+        $logs.textcontent = '홈런!';
+        return;
+      }
+      if (tries.length >= 9) { //시도를 10번 이상하면 패배라고 표시해야함.
+        //-> 이거 자세하게 설명하면
+        // 9번째 입력이 끝난 순간부터 이미 패배! 를 띄우려고함. 근데 만약 10번째 시도에서 정답이면 이 코드 실행되기 전에 return이 되므로 노상관. 근데 10번째가 정답이 아니면 미리 띄우려했던 이 코드가 출력. 
+        const message = document.createTextNode(`패배! 정답은 ${answer.join('')}!`);
+        $logs.appendChild(message);
+        return;
+      }
+
+      //몇 스트라이크 몇 볼인지 검사
+      let strike = 0;
+      let ball = 0;
+      for (let i=0; i< answer.length; i++) { //정답숫자를 앞에서부터 돔.
+        const index = value.indexOf(answer[i]); //유저가 입력한 값에서 맞는 숫자의 인덱스를 저장
+        if (index > -1) { //인덱스가 있다? : 일치
+          if (index == i) {
+            strike += 1;
+          } else {
+            ball += 1
+          }
+        }
+      }
+      if (strike ===0 && ball===0) {
+        out++;
+        $logs.append(`${value}: ${out}Out!`, document.createElement('br'));
+      } else {
+        $logs.append(`${value}: ${strike} 스트라이크 ${ball} 볼`, document.createElement('br'));
+      }
+      if (out===3) {
+        $logs.append(`3아웃 패배! 정답은 ${answer.join('')}!`);
+        $input.disabled = true;
+        
+      }
+      
+      tries.push(value);
+    })
+  </script>
+</body>
+
+</html>
