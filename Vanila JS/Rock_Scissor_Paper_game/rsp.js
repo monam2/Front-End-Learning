@@ -29,19 +29,40 @@ let intervalId = setInterval(changeComputerHand, 50);
 
 
 let clickable = true;
-const clickButton = () => {
+const clickButton = (e) => {
     if (clickable) {
         clearInterval(intervalId);
         clickable = false; //Flag변수 설정
 
-        setTimeout(() => { //1초 후에 다시 인터벌 실행
-            intervalId = setInterval(changeComputerHand, 50);
-            // $rock.addEventListener('click', clickButton);
-            // $scissors.addEventListener('click', clickButton);
-            // $paper.addEventListener('click', clickButton);
-        }, 1000)
+        const scoreTable = {
+            rock : 0,
+            scissors : 1,
+            paper : -1,
+        };
 
-    }
+        const myChoice = e.target.textContent === '바위' ? 'rock' : e.target.textContent === '가위' ? 'scissors' : 'paper';
+
+        const myScore = scoreTable[myChoice];
+        const computerScore = scoreTable[computerChoice];
+        const diff = myScore - computerChoice;
+
+        if (computerChoice === 'rock') {
+            console.log('승리');
+        } else if (diff === -2 || diff === 1) {
+            console.log('패배');
+        } else {
+            console.log('무승부');
+        }
+
+
+    setTimeout(() => { //1초 후에 다시 인터벌 실행
+        intervalId = setInterval(changeComputerHand, 50);
+        // $rock.addEventListener('click', clickButton);
+        // $scissors.addEventListener('click', clickButton);
+        // $paper.addEventListener('click', clickButton);
+    }, 1000)
+
+}
     // clearInterval(intervalId);
     // $rock.removeEventListener('click', clickButton);
     // $scissors.removeEventListener('click', clickButton);
