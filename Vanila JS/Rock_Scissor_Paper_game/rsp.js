@@ -46,7 +46,7 @@ const clickButton = (e) => {
         const computerScore = scoreTable[computerChoice];
         const diff = myScore - computerChoice;
 
-        if (computerChoice === 'rock') {
+        if (diff === 2 || diff === -1) {
             console.log('승리');
         } else if (diff === -2 || diff === 1) {
             console.log('패배');
