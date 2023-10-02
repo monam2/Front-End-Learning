@@ -34,6 +34,9 @@ const scoreTable = {
 
 let clickable = true;
 let score = 0;
+let computerScoreSelf = 0;
+let myScoreSelf = 0;
+let gameCount = 0;
 const clickButton = (e) => {
     if (clickable) {
         clearInterval(intervalId);
@@ -54,24 +57,36 @@ const clickButton = (e) => {
         //2,-1 : 승리조건 / -2, 1 : 패배조건
         if (diff === 2 || diff === -1) {
             message = '승리';
-            score += 1;
+            myScoreSelf += 1;
+            gameCount += 1;
         } else if (diff === -2 || diff === 1) {
             message = '패배';
-            score -= 1;
+            computerScoreSelf += 1;
+            gameCount += 1;
         } else {
             message = '무승부';
         }
 
-        $score.textContent = `${message} 총: ${score}점`;
-        setTimeout(() => { //1초 후에 다시 인터벌 실행
-            clickable = true;
-            intervalId = setInterval(changeComputerHand, 50);
+        if (myScoreSelf >= 3) {
+            $score.textContent = `${message} ${gameCount}회차 나 : ${myScoreSelf} 컴퓨터 : ${computerScoreSelf}
+            당신의 승리입니다!`;
+        } else if (computerScoreSelf >= 3) {
+            $score.textContent = `${message} ${gameCount}회차 나 : ${myScoreSelf} 컴퓨터 : ${computerScoreSelf}
+            컴퓨터의 승리입니다!`;
+        } else {
+            $score.textContent = `${message} ${gameCount}회차 나 : ${myScoreSelf} 컴퓨터 : ${computerScoreSelf}
+            게임을 계속 진행하세요!`;
+            setTimeout(() => { //1초 후에 다시 인터벌 실행
+                clickable = true;
+                intervalId = setInterval(changeComputerHand, 50);
 
-            // $rock.addEventListener('click', clickButton);
-            // $scissors.addEventListener('click', clickButton);
-            // $paper.addEventListener('click', clickButton);
-        }, 1000)
+                // $rock.addEventListener('click', clickButton);
+                // $scissors.addEventListener('click', clickButton);
+                // $paper.addEventListener('click', clickButton);
+            }, 1000)
+        }
     }
+
     // clearInterval(intervalId);
     // $rock.removeEventListener('click', clickButton);
     // $scissors.removeEventListener('click', clickButton);
