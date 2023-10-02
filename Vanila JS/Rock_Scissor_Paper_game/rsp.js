@@ -15,54 +15,63 @@ const rspX = {
 
 let computerChoice = 'scissors'; //현재 상태
 function changeComputerHand() {
-    if (computerChoice === 'scissors') { //현재 가위라면 -> 바위로 변경
-        computerChoice = 'rock';
-    } else if (computerChoice === 'rock') { //바위라면
+    if (computerChoice === 'rock') { //현재 가위라면 -> 바위로 변경
+        computerChoice = 'scissors';
+    } else if (computerChoice === 'scissors') { //바위라면
         computerChoice = 'paper';
     } else if (computerChoice === 'paper') { //보라면
-        computerChoice = 'scissors';
+        computerChoice = 'rock';
     }
     $computer.style.background = `url(${IMG_URL}) ${rspX[computerChoice]} 0`;
     $computer.style.backgroundSize = 'auto 200px';
 };
 let intervalId = setInterval(changeComputerHand, 50);
-
+const scoreTable = {
+    rock: 0,
+    scissors: 1,
+    paper: -1,
+};
 
 let clickable = true;
+let score = 0;
 const clickButton = (e) => {
     if (clickable) {
         clearInterval(intervalId);
         clickable = false; //Flag변수 설정
 
-        const scoreTable = {
-            rock : 0,
-            scissors : 1,
-            paper : -1,
-        };
-
-        const myChoice = e.target.textContent === '바위' ? 'rock' : e.target.textContent === '가위' ? 'scissors' : 'paper';
+        const myChoice = e.target.textContent === '바위'
+            ? 'rock'
+            : e.target.textContent === '가위'
+                ? 'scissors'
+                : 'paper';
 
         const myScore = scoreTable[myChoice];
         const computerScore = scoreTable[computerChoice];
-        const diff = myScore - computerChoice;
+        const diff = myScore - computerScore;
 
+        let message;
+
+        //2,-1 : 승리조건 / -2, 1 : 패배조건
         if (diff === 2 || diff === -1) {
-            console.log('승리');
+            message = '승리';
+            score += 1;
         } else if (diff === -2 || diff === 1) {
-            console.log('패배');
+            message = '패배';
+            score -= 1;
         } else {
-            console.log('무승부');
+            message = '무승부';
         }
 
+        $score.textContent = `${message} 총: ${score}점`;
+        setTimeout(() => { //1초 후에 다시 인터벌 실행
+            clickable = true;
+            intervalId = setInterval(changeComputerHand, 50);
 
-    setTimeout(() => { //1초 후에 다시 인터벌 실행
-        intervalId = setInterval(changeComputerHand, 50);
-        // $rock.addEventListener('click', clickButton);
-        // $scissors.addEventListener('click', clickButton);
-        // $paper.addEventListener('click', clickButton);
-    }, 1000)
-
-}
+            // $rock.addEventListener('click', clickButton);
+            // $scissors.addEventListener('click', clickButton);
+            // $paper.addEventListener('click', clickButton);
+        }, 1000)
+    }
     // clearInterval(intervalId);
     // $rock.removeEventListener('click', clickButton);
     // $scissors.removeEventListener('click', clickButton);
