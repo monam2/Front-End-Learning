@@ -24,8 +24,9 @@ for (let i = 0; i < 3; i++) {
             } else if (turn === 'X') {
                 turn = 'O';
             }
+            //turn = turn === 'O' ? 'X' : 'O'; 삼항연산자 사용
         })
-        
+
         $tr.appendChild($td);
     }
     $table.append($tr);
