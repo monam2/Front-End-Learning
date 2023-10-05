@@ -1,16 +1,16 @@
+const { body } = document;
 
+const $table = document.createElement('table');
+const $result = document.createElement('div');
+const row = [];
 let turn = 'O';
 
-const data = [];
-for (let i = 0; i < 3; i++) {
-    data.push([]);
-}
-const $table = document.createElement('table')
 for (let i = 0; i < 3; i++) {
     $tr = document.createElement('tr');
-
+    const cells = [];
     for (let j = 0; j < 3; j++) {
         const $td = document.createElement('td')
+        cells.push($td)
         $td.addEventListener('click', (event) => {
 
             //칸에 글자가 표시(글자)가 있는가? -> O/X가 있으면 그냥 바로 종료
@@ -24,14 +24,15 @@ for (let i = 0; i < 3; i++) {
             } else if (turn === 'X') {
                 turn = 'O';
             }
-
         })
-
+        
         $tr.appendChild($td);
     }
     $table.append($tr);
+    row.push(cells)
 }
 
 
 
 document.body.append($table);
+document.body.append($result);
