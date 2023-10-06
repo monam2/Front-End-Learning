@@ -26,7 +26,6 @@ for (let i = 0; i < 3; i++) {
             }
             //turn = turn === 'O' ? 'X' : 'O'; 삼항연산자 사용
         })
-
         $tr.appendChild($td);
     }
     $table.append($tr);
@@ -35,5 +34,5 @@ for (let i = 0; i < 3; i++) {
 
 
 
-document.body.append($table);
-document.body.append($result);
+body.append($table);
+body.append($result);
