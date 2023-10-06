@@ -7,16 +7,16 @@ let turn = 'O';
 
 //가로,세로,대각선 을 확인해서 승자가 있는지 확인
 const checkWinnner = (target) => { //타겟 : 지금 보고 있는 칸
-    let rowIndex;
-    let cellIndex;
-    rows.forEach((row, ri) => {
-        row.forEach((cell, ci) => {
-            if (cell === target) {
-                rowIndex = ri;
-                cellIndex = ci;
-            }
-        });
-    })
+    let rowIndex = target.parentNode.rowIndex;
+    let cellIndex = target.cellIndex;
+    // rows.forEach((row, ri) => {
+    //     row.forEach((cell, ci) => {
+    //         if (cell === target) {
+    //             rowIndex = ri;
+    //             cellIndex = ci;
+    //         }
+    //     });
+    // })
 
     let hasWinner = false;
     if ( // 가로줄 체크
@@ -65,14 +65,16 @@ const callback = (event) =>{
             };
 
             //무승부 검사(칸이 꽉 차면)
-            let draw = true;
-            rows.forEach((row) => {
-                row.forEach((cell) => {
-                    if (!cell.textContent) { //빈칸이 있으면
-                        draw = false;
-                    }
-                })
-            });
+            const draw = rows.flat().every((cell)=>cell.textContent);
+            // 빈칸이 하나라도 있으면 false나옴 = 꽉 차면 true됨.
+
+            // rows.forEach((row) => {
+            //     row.forEach((cell) => {
+            //         if (!cell.textContent) { //빈칸이 있으면
+            //             draw = false;
+            //         }
+            //     })
+            // });
             //빈칸이 없다? = 칸이 꽉찼다 => 무승부(종료)
             if (draw) {
                 $result.textContent = '무승부입니다.';
