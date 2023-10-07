@@ -51,7 +51,13 @@ const checkWinnner = (target) => { //타겟 : 지금 보고 있는 칸
     return hasWinner;
 };
 
+let clickable = true;
+
 const callback = (event) => {
+    if (!clickable) { // 컴퓨터의차레(클릭x)이면 실행x(클릭이벤트)
+        return;
+    }
+
     //칸에 글자가 표시(글자)가 있는가? -> O/X가 있으면 그냥 바로 종료
     //비동기에서 클릭을 하면 안되는 경우엔 이렇게 return 시켜서 종료해도 됨.
     if (event.target.textContent) return; // o/x인 경우 
@@ -91,19 +97,24 @@ const callback = (event) => {
 
     //셀프체크 - 컴퓨터의 턴 추가하기
     if (turn === 'X') { //컴퓨터의 턴이면
-        //빈칸만 모아서, 그 중에 하나를 
-        const emptyCells = rows.flat().filter((v)=>!v.textContent);
-        const randomCell = emptyCells[Math.floor(Math.random()*emptyCells.length)];
-        randomCell.textContent = 'X';
-        const hasWinner = checkWinnner(randomCell); //비어있는 칸을 눌렀을 때 승자가 있는지 판단.
-        
-        if (hasWinner) {
-            $result.textContent = `${turn}님이 승리!`;
-            return;
-        }
-        turn = 'O';
+        clickable = false; //타이머 작동중엔 클릭x
+        $result.textContent = '컴퓨터가 고민중...';
+        setTimeout(() => {
 
-        
+            //빈칸만 모아서, 그 중에 하나를 
+            const emptyCells = rows.flat().filter((v)=>!v.textContent);
+            const randomCell = emptyCells[Math.floor(Math.random()*emptyCells.length)];
+            randomCell.textContent = 'X';
+            const hasWinner = checkWinnner(randomCell); //비어있는 칸을 눌렀을 때 승자가 있는지 판단.
+            
+            if (hasWinner) {
+                $result.textContent = `${turn}님이 승리!`;
+                return;
+            }
+            turn = 'O';
+            $result.textContent = '당신의 차례';
+            clickable = true; //타이머 끝나면 이제 클릭가능(당신차례)
+        }, 1000);
     }
 }
 
@@ -119,8 +130,6 @@ for (let i = 0; i < 3; i++) {
     $table.append($tr);
     rows.push(cells)
 }
-
-
 
 body.append($table);
 body.append($result);
